@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- 定义文档类型和语言 -->
+  <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 设置视口宽度和初始缩放比例，适应移动设备 -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- 确保IE浏览器使用最新渲染模式 -->
+  <title>原生JS与CSS实现软件卸载对话框</title> <!-- 页面标题 -->
+  <!-- <link rel="stylesheet" href="css/confirm.css"> -->
+  <!-- 被注释掉的外部样式表链接 -->
+
+  <!-- 样式部分 -->
+  <style>
+    /* 全局重置样式 */
+    * {
+      box-sizing: border-box;
+      /* 设置所有元素的盒模型为包含边框和内边距 */
+      font: inherit;
+      /* 继承父元素字体样式 */
+    }
+
+    /* HTML 和 body 样式 */
+    html {
+      color: #333;
+      /* 设置默认文字颜色 */
+      font-size: 62.5%;
+      /* 设置根字体大小为浏览器默认值的62.5%，方便rem单位计算 */
+    }
+
+    @media screen and (max-width: 480px) {
+
+      /* 响应式设计：当屏幕宽度小于等于480px时 */
+      html {
+        font-size: 50%;
+        /* 减小字体大小以适应小屏幕 */
+      }
+    }
+
+    html body {
+      font-size: 2rem;
+      /* 设置页面字体大小 */
+      padding: 0;
+      /* 移除默认内边距 */
+      margin: 0;
+      /* 移除默认外边距 */
+      width: 100vw;
+      /* 设置页面宽度为视口宽度 */
+      height: 100vh;
+      /* 设置页面高度为视口高度 */
+      background-image: linear-gradient(to left bottom, #444, #222);
+      /* 设置背景渐变色 */
+      font-family: 'Rubik', sans-serif;
+      /* 设置字体 */
+    }
+
+    /* 对话框主体样式 */
+    .Confirm {
+      position: absolute;
+      /* 设置绝对定位 */
+      display: flex;
+      /* 使用弹性布局 */
+      flex-direction: column;
+      /* 子元素垂直排列 */
+      overflow: hidden;
+      /* 隐藏溢出内容 */
+      top: 50%;
+      /* 水平居中 */
+      left: 50%;
+      /* 垂直居中 */
+      transform: translate(-50%, -50%);
+      /* 实现精确居中 */
+      width: 72rem;
+      /* 设置宽度 */
+      max-width: 100%;
+      /* 最大宽度为视口宽度 */
+      min-width: 34rem;
+      /* 最小宽度 */
+      max-height: 100%;
+      /* 最大高度为视口高度 */
+      height: 46rem;
+      /* 设置高度 */
+      background-color: #ccc;
+      /* 设置背景颜色 */
+      border-radius: 1rem;
+      /* 设置圆角 */
+      box-shadow: 0px 10px 5px -3px rgba(0, 0, 0, 0.2);
+      /* 添加阴影效果 */
+    }
+
+    /* 对话框头部样式 */
+    .Confirm-Header {
+      display: flex;
+      /* 使用弹性布局 */
+      align-items: center;
+      /* 垂直居中对齐 */
+      position: relative;
+      /* 设置相对定位 */
+      flex: 0 0 4rem;
+      /* 固定高度 */
+      margin: 0 1rem;
+      /* 设置左右内边距 */
+      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+      /* 添加底部细线 */
+      white-space: nowrap;
+      /* 防止文字换行 */
+    }
+
+    /* 对话框头部按钮样式 */
+    .Confirm-Header-Button {
+      display: block;
+      /* 设置为块级元素 */
+      width: 1.6rem;
+      /* 设置宽度 */
+      height: 1.6rem;
+      /* 设置高度 */
+      border-radius: 1rem;
+      /* 设置圆角 */
+      flex: 0 0 auto;
+      /* 不允许伸缩 */
+      transition: background-color 0.3s;
+      /* 添加背景颜色过渡效果 */
+    }
+
+    .Confirm-Header-Button:not(:last-of-type) {
+      margin-right: 1rem;
+      /* 设置右侧间距 */
+    }
+
+    /* 关闭按钮样式 */
+    .Confirm-Header-Button_Close {
+      background-color: #a43;
+      /* 设置背景颜色 */
+    }
+
+    .Confirm-Header-Button_Close:hover {
+      background-color: #c85a48;
+      /* 鼠标悬停时改变背景颜色 */
+    }
+
+    /* 最大化按钮样式 */
+    .Confirm-Header-Button_Maximize {
+      background-color: #cb3;
+      /* 设置背景颜色 */
+    }
+
+    .Confirm-Header-Button_Maximize:hover {
+      background-color: #d6c95c;
+      /* 鼠标悬停时改变背景颜色 */
+    }
+
+    /* 最小化按钮样式 */
+    .Confirm-Header-Button_Minimize {
+      background-color: #6a4;
+      /* 设置背景颜色 */
+    }
+
+    .Confirm-Header-Button_Minimize:hover {
+      background-color: #81c061;
+      /* 鼠标悬停时改变背景颜色 */
+    }
+
+    /* 对话框头部标题样式 */
+    .Confirm-Header-Title {
+      margin: 0;
+      /* 移除默认外边距 */
+      padding: 0;
+      /* 移除默认内边距 */
+      transform: translateX(50%);
+      /* 向右偏移 */
+      margin-right: 50%;
+      /* 设置右侧间距 */
+      margin-left: auto;
+      /* 自动调整左侧间距 */
+    }
+
+    /* 对话框主体内容样式 */
+    .Confirm-Body {
+      flex: 1;
+      /* 占据剩余空间 */
+      display: flex;
+      /* 使用弹性布局 */
+      align-items: flex-end;
+      /* 内容靠下对齐 */
+      justify-content: space-between;
+      /* 子元素两端对齐 */
+      position: relative;
+      /* 设置相对定位 */
+      margin: 2rem 4rem;
+      /* 设置上下左右内边距 */
+    }
+
+    /* 对话框主体标题样式 */
+    .Confirm-Body-Title {
+      margin: 0;
+      /* 移除默认外边距 */
+      padding: 0;
+      /* 移除默认内边距 */
+      position: absolute;
+      /* 设置绝对定位 */
+      transform: translateY(-50%);
+      /* 垂直居中 */
+      top: 5%;
+      /* 设置顶部位置 */
+      text-align: center;
+      /* 文字居中对齐 */
+      width: 100%;
+      /* 设置宽度 */
+    }
+
+    /* 对话框按钮样式 */
+    .Confirm-Body-Button,
+    .Confirm-Body-Button:link,
+    .Confirm-Body-Button:visited {
+      color: #fff;
+      /* 设置文字颜色 */
+      border-radius: 1rem;
+      /* 设置圆角 */
+      text-decoration: none;
+      /* 移除下划线 */
+      padding: 1rem 2rem;
+      /* 设置内边距 */
+      margin-bottom: 1rem;
+      /* 设置底部间距 */
+      min-width: 10rem;
+      /* 设置最小宽度 */
+      text-align: center;
+      /* 文字居中对齐 */
+      transition: background-color 0.3s;
+      /* 添加背景颜色过渡效果 */
+    }
+
+    /* 删除按钮样式 */
+    .Confirm-Body-Button_Delete {
+      background-color: #a43;
+      /* 设置背景颜色 */
+    }
+
+    .Confirm-Body-Button_Delete:hover {
+      background-color: #c85a48;
+      /* 鼠标悬停时改变背景颜色 */
+    }
+
+    /* 取消按钮样式 */
+    .Confirm-Body-Button_Cancel {
+      background-color: #6a4;
+      /* 设置背景颜色 */
+    }
+
+    .Confirm-Body-Button_Cancel:hover {
+      background-color: #81c061;
+      /* 鼠标悬停时改变背景颜色 */
+    }
+
+    /* Boi 动画角色样式 */
+    .Boi {
+      --happiness: 0.9;
+      /* 设置幸福度变量 */
+      --derp: 1;
+      /* 设置傻乎乎程度变量 */
+      --px: 0.5;
+      /* 设置水平位置变量 */
+      --py: 0.5;
+      /* 设置垂直位置变量 */
+      width: 22rem;
+      /* 设置宽度 */
+      max-width: 100%;
+      /* 最大宽度为容器宽度 */
+      height: 22rem;
+      /* 设置高度 */
+      top: 50%;
+      /* 水平居中 */
+      left: 50%;
+      /* 垂直居中 */
+      transform: translate(-50%, -50%);
+      /* 实现精确居中 */
+      background-image: radial-gradient(#f7e0b2, #eb5);
+      /* 设置背景径向渐变 */
+      border-radius: 100%;
+      /* 设置圆形 */
+      overflow: hidden;
+      /* 隐藏溢出内容 */
+      margin: 0;
+      /* 移除默认外边距 */
+      align-self: center;
+      /* 居中对齐 */
+      flex: 0 0 auto;
+      /* 不允许伸缩 */
+      border: solid 2px #ecb23e;
+      /* 添加边框 */
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+      /* 添加阴影效果 */
+    }
+
+    .Boi,
+    .Boi * {
+      position: absolute;
+      /* 设置绝对定位 */
+    }
+
+    /* Boi 的半透明遮罩层 */
+    .Boi::before {
+      content: '';
+      /* 必须设置空内容 */
+      display: block;
+      /* 设置为块级元素 */
+      width: 100%;
+      /* 设置宽度 */
+      height: 100%;
+      /* 设置高度 */
+      top: 0;
+      /* 设置顶部位置 */
+      left: 0;
+      /* 设置左侧位置 */
+      background-image: linear-gradient(to bottom, #5a8, rgba(85, 170, 136, 0));
+      /* 设置背景线性渐变 */
+      opacity: calc(1 - var(--happiness));
+      /* 根据幸福度变量计算透明度 */
+    }
+
+    /* Boi 的腮红样式 */
+    .Boi-Blush {
+      width: 20%;
+      /* 设置宽度 */
+      height: 10%;
+      /* 设置高度 */
+      background-color: rgba(255, 100, 100, 0.3);
+      /* 设置背景颜色 */
+      border: 3px solid rgba(255, 100, 100, 0.3);
+      /* 添加边框 */
+      top: calc(45% + var(--py) * 10%);
+      /* 根据垂直位置变量计算顶部位置 */
+      border-radius: 100%;
+      /* 设置圆形 */
+      opacity: calc(var(--happiness) * var(--happiness) * 0.9 + 0.1);
+      /* 根据幸福度变量计算透明度 */
+    }
+
+    .Boi-Blush_L {
+      left: calc(7% + var(--px) * 2%);
+      /* 根据水平位置变量计算左侧位置 */
+    }
+
+    .Boi-Blush_R {
+      right: calc(9% - var(--px) * 2%);
+      /* 根据水平位置变量计算右侧位置 */
+    }
+
+    /* Boi 的眼睛样式 */
+    .Boi-Eye {
+      width: calc(26% - var(--happiness) * 2%);
+      /* 根据幸福度变量计算宽度 */
+      height: calc(26% - var(--happiness) * 2%);
+      /* 根据幸福度变量计算高度 */
+      background-color: #f6f6f6;
+      /* 设置背景颜色 */
+      border-radius: 100%;
+      /* 设置圆形 */
+      top: calc(25% + var(--py) * 10%);
+      /* 根据垂直位置变量计算顶部位置 */
+      overflow: hidden;
+      /* 隐藏溢出内容 */
+    }
+
+    .Boi-Eye_L {
+      left: calc(18% + var(--px) * 4%);
+      /* 根据水平位置变量计算左侧位置 */
+    }
+
+    .Boi-Eye_L::after {
+      transform: translate(calc((var(--px) + var(--derp) * 0.5) * 100%), calc((var(--py) + var(--derp) * 0.5) * 100%));
+      /* 根据位置变量动态调整瞳孔位置 */
+    }
+
+    .Boi-Eye_R {
+      right: calc(22% - var(--px) * 4%);
+      /* 根据水平位置变量计算右侧位置 */
+    }
+
+    .Boi-Eye_R::after {
+      transform: translate(calc((var(--px) + var(--derp) * -0.3) * 100%), calc((var(--py) + var(--derp) * -0.3) * 100%));
+      /* 根据位置变量动态调整瞳孔位置 */
+    }
+
+    .Boi-Eye::after {
+      content: '';
+      /* 必须设置空内容 */
+      display: block;
+      /* 设置为块级元素 */
+      background-color: #421;
+      /* 设置瞳孔颜色 */
+      width: calc(55% - var(--happiness) * 10%);
+      /* 根据幸福度变量计算宽度 */
+      height: calc(55% - var(--happiness) * 10%);
+      /* 根据幸福度变量计算高度 */
+      border-radius: 100%;
+      /* 设置圆形 */
+    }
+
+    /* Boi 的嘴巴样式 */
+    .Boi-Mouth {
+      width: calc(51% - var(--happiness) * 2%);
+      /* 根据幸福度变量计算宽度 */
+      height: calc(26% - var(--happiness) * 2%);
+      /* 根据幸福度变量计算高度 */
+      background-color: #a33;
+      /* 设置背景颜色 */
+      border-radius: calc((1 - var(--happiness)) * 10em) calc((1 - var(--happiness)) * 10em) calc(var(--happiness) * 16em) calc(var(--happiness) * 16em);
+      /* 动态调整圆角 */
+      top: calc(57.5% + var(--py) * 5%);
+      /* 根据垂直位置变量计算顶部位置 */
+      left: calc(47.5% + var(--px) * 5%);
+      /* 根据水平位置变量计算左侧位置 */
+      transform: translateX(-50%);
+      /* 实现水平居中 */
+      overflow: hidden;
+      /* 隐藏溢出内容 */
+      border: 3px solid #962d2d;
+      /* 添加边框 */
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      /* 设置蒙版 */
+    }
+
+    .Boi-Mouth::before {
+      content: '';
+      /* 必须设置空内容 */
+      display: block;
+      /* 设置为块级元素 */
+      position: absolute;
+      /* 设置绝对定位 */
+      width: 20%;
+      /* 设置宽度 */
+      height: 20%;
+      /* 设置高度 */
+      top: 0;
+      /* 设置顶部位置 */
+      left: 50%;
+      /* 设置左侧位置 */
+      background-color: white;
+      /* 设置背景颜色 */
+      border-radius: 0 0 0.5rem 0.5rem;
+      /* 设置圆角 */
+    }
+
+    .Boi-Mouth::after {
+      content: '';
+      /* 必须设置空内容 */
+      display: block;
+      /* 设置为块级元素 */
+      position: absolute;
+      /* 设置绝对定位 */
+      width: 60%;
+      /* 设置宽度 */
+      height: 50%;
+      /* 设置高度 */
+      left: 10%;
+      /* 设置左侧位置 */
+      bottom: 0;
+      /* 设置底部位置 */
+      background-color: rgba(0, 0, 0, 0.2);
+      /* 设置背景颜色 */
+      border-radius: 20rem 20rem 0 0;
+      /* 设置圆角 */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 对话框主体结构 -->
+  <section class="Confirm">
+    <div class="Confirm-Header">
+      <a class="Confirm-Header-Button Confirm-Header-Button_Close" href="javascript: void(0)"></a> <!-- 关闭按钮 -->
+      <a class="Confirm-Header-Button Confirm-Header-Button_Minimize" href="javascript: void(0)"></a> <!-- 最小化按钮 -->
+      <a class="Confirm-Header-Button Confirm-Header-Button_Maximize" href="javascript: void(0)"></a> <!-- 最大化按钮 -->
+      <h1 class="Confirm-Header-Title">软件卸载</h1> <!-- 对话框标题 -->
+    </div>
+
+    <div class="Confirm-Body">
+      <h2 class="Confirm-Body-Title">是否确实要卸载软件？</h2> <!-- 提示信息 -->
+      <figure class="Boi" style="--happiness:0.9; --derp:1; --px:0.5; --py:0.5;">
+        <!-- Boi 动画角色 -->
+        <div class="Boi-Blush Boi-Blush_L"></div> <!-- 左侧腮红 -->
+        <div class="Boi-Blush Boi-Blush_R"></div> <!-- 右侧腮红 -->
+        <div class="Boi-Eye Boi-Eye_L"></div> <!-- 左眼 -->
+        <div class="Boi-Eye Boi-Eye_R"></div> <!-- 右眼 -->
+        <div class="Boi-Mouth"></div> <!-- 嘴巴 -->
+      </figure>
+      <a class="Confirm-Body-Button Confirm-Body-Button_Cancel" href="javascript: void(0)">保留</a> <!-- 取消按钮 -->
+      <a class="Confirm-Body-Button Confirm-Body-Button_Delete" href="javascript: void(0)">卸载</a> <!-- 删除按钮 -->
+    </div>
+  </section>
+  <!-- <script src="js/confirm.js"></script> -->
+  <!-- 被注释掉的外部脚本链接 -->
+
+  <!-- JavaScript 动画逻辑 -->
+  <script>
+    const confirm = document.querySelector('.Confirm'); // 获取对话框主体
+    const boi = document.querySelector('.Boi'); // 获取 Boi 动画角色
+    const btnDelete = document.querySelector('.Confirm-Body-Button_Delete'); // 获取删除按钮
+    const btnCancel = document.querySelector('.Confirm-Body-Button_Cancel'); // 获取取消按钮
+
+    const current = { // 当前状态变量
+      happiness: 0.9, // 当前幸福度
+      derp: 1, // 当前傻乎乎程度
+      px: 0.5, // 当前水平位置
+      py: 0.5, // 当前垂直位置
+    };
+
+    const target = {
+      ...current
+    }; // 目标状态变量
+
+    confirm.addEventListener('mousemove', onMouseMove); // 监听鼠标移动事件
+    confirm.addEventListener('mouseleave', onMouseLeave); // 监听鼠标离开事件
+
+    function onMouseMove({
+      clientX: x,
+      clientY: y
+    }) { // 鼠标移动事件处理函数
+      let dx1 = x - btnDelete.getBoundingClientRect().x - btnDelete.getBoundingClientRect().width *
+        0.5; // 计算鼠标到删除按钮中心的水平距离
+      let dy1 = y - btnDelete.getBoundingClientRect().y - btnDelete.getBoundingClientRect().height *
+        0.5; // 计算鼠标到删除按钮中心的垂直距离
+      let dx2 = x - btnCancel.getBoundingClientRect().x - btnCancel.getBoundingClientRect().width *
+        0.5; // 计算鼠标到取消按钮中心的水平距离
+      let dy2 = y - btnCancel.getBoundingClientRect().y - btnCancel.getBoundingClientRect().height *
+        0.5; // 计算鼠标到取消按钮中心的垂直距离
+      let px = (x - confirm.getBoundingClientRect().x) / confirm.getBoundingClientRect().width; // 计算鼠标相对于对话框的水平位置
+      let py = (y - confirm.getBoundingClientRect().y) / confirm.getBoundingClientRect().height; // 计算鼠标相对于对话框的垂直位置
+      let distDelete = Math.sqrt(dx1 * dx1 + dy1 * dy1); // 计算鼠标到删除按钮的距离
+      let distCancel = Math.sqrt(dx2 * dx2 + dy2 * dy2); // 计算鼠标到取消按钮的距离
+      let happiness = Math.pow(distDelete / (distCancel + distDelete), 0.75); // 根据距离计算幸福度
+
+      target.happiness = happiness; // 更新目标幸福度
+      target.derp = 0; // 更新目标傻乎乎程度
+      target.px = px; // 更新目标水平位置
+      target.py = py; // 更新目标垂直位置
+    }
+
+    function onMouseLeave() { // 鼠标离开事件处理函数
+      target.happiness = 0.9; // 恢复默认幸福度
+      target.derp = 1; // 恢复默认傻乎乎程度
+      target.px = 0.5; // 恢复默认水平位置
+      target.py = 0.5; // 恢复默认垂直位置
+    }
+
+    function update() { // 更新动画状态
+      for (let prop in target) { // 遍历目标状态变量
+        if (target[prop] === current[prop]) { // 如果目标值等于当前值，则跳过
+          continue;
+        } else if (Math.abs(target[prop] - current[prop]) < 0.01) { // 如果差值小于阈值，则直接更新
+          current[prop] = target[prop];
+        } else { // 否则逐步更新
+          current[prop] += (target[prop] - current[prop]) * 0.1;
+        }
+        boi.style.setProperty(`--${prop}`, current[prop]); // 更新 CSS 变量
+      }
+      requestAnimationFrame(update); // 请求下一帧动画
+    }
+    update(); // 启动动画更新循环
+  </script>
+</body>
+
+</html>
+
+
+<!-- 
+网页功能说明：
+这是一个拟物化的软件卸载确认对话框，主要实现了以下功能：
+
+1. 界面特性：
+- 仿桌面应用的窗口设计，包含最小化/最大化/关闭按钮
+- 响应式布局，支持移动端适配
+- 拟物化设计风格（阴影、渐变、圆角）
+
+2. 核心交互：
+- 动态表情系统（Boi）：
+   * 眼睛跟随鼠标移动
+   * 嘴巴形状随交互变化
+   * 腮红透明度动态变化
+   * 根据鼠标靠近"卸载"或"保留"按钮改变表情
+   * 平滑的动画过渡效果
+
+3. 技术实现：
+- 基于CSS自定义属性（CSS Variables）实现动态样式
+- 使用requestAnimationFrame实现流畅动画
+- 通过几何计算实现表情元素的动态响应
+- 基于物理的平滑过渡算法（缓动函数）
+
+4. 交互细节：
+- 当鼠标靠近"卸载"按钮时，表情变得悲伤
+- 当鼠标靠近"保留"按钮时，表情变得开心
+- 鼠标离开对话框时恢复默认表情
+- 所有状态变化都带有平滑动画过渡
+
+该示例展示了如何结合现代CSS特性与原生JavaScript实现复杂的交互效果，无需任何第三方库，体现了原生Web技术的强大表现力。
+-->
