@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      perspective: 1000px;
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    a {
+      list-style: none;
+      text-decoration: none;
+      color: white;
+    }
+
+    .topnav {
+      /* width: 100%; */
+      position: relative;
+      /* bottom: 0; */
+      height: 289px;
+      background: url(./images/top2024.png) no-repeat;
+    }
+
+    .nav {
+      /* position: absolute; */
+      /* bottom: 0; */
+      width: 1000px;
+      height: 120px;
+      display: flex;
+      /* box-sizing: border-box; */
+      margin: 0 auto;
+      /* margin-top: 169px; */
+      padding-top: 250px;
+      justify-content: space-between;
+    }
+
+    .nav a:hover {
+      height: 25px;
+      border-bottom: 2px solid red;
+    }
+
+    .body {
+      width: 1000px;
+      /* height: 500px; */
+      margin: 20px auto;
+      /* display: flex; */
+      /* justify-content: space-between; */
+    }
+
+    .body_oneline {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lishih2 {
+      width: 550px;
+      margin-left: 10px;
+      border-bottom: 2px solid #717171;
+    }
+
+    .lishiqiyuan {
+      width: 560px;
+    }
+
+    .tupian {
+      position: relative;
+      left: -10px;
+    }
+
+    .body_twoline {
+      width: 1000px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .body_twoline_left {
+      width: 630px;
+    }
+
+    .body_twoline_right {
+      width: 340px;
+    }
+
+    .lishih3 {
+      width: 630px;
+      margin-left: 10px;
+      border-bottom: 2px solid #717171;
+    }
+
+    .lishih4 {
+      width: 340px;
+      margin-left: 10px;
+      border-bottom: 2px solid #717171;
+    }
+
+    .lishih5 {
+      width: 100%;
+      margin-left: 10px;
+      border-bottom: 2px solid #717171;
+    }
+
+    .bottom {
+      width: 1000px;
+      margin: 20px auto;
+    }
+
+
+    .circle {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      margin: 200px auto;
+      /* background: url(./佩奇.jpg) no-repeat; */
+      /* 3D呈现 */
+      transform-style: preserve-3d;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotateY(0);
+      }
+
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
+
+    .circle div {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+    }
+
+    .circle div:nth-child(1) {
+      background: url(./images/lian1.png) no-repeat;
+      transform: translateZ(300px);
+    }
+
+    .circle div:nth-child(2) {
+      background: url(./images/lian2.png) no-repeat;
+      transform: rotateY(60deg) translateZ(300px);
+    }
+
+    .circle div:nth-child(3) {
+      background: url(./images/lian3.png) no-repeat;
+      transform: rotateY(120deg) translateZ(300px);
+    }
+
+    .circle div:nth-child(4) {
+      background: url(./images/lian4.png) no-repeat;
+      transform: rotateY(180deg) translateZ(300px);
+    }
+
+    .circle div:nth-child(5) {
+      background: url(./images/lian5.png) no-repeat;
+      transform: rotateY(240deg) translateZ(300px);
+    }
+
+    .circle div:nth-child(6) {
+      background: url(./images/lian6.png) no-repeat;
+      transform: rotateY(300deg) translateZ(300px);
+    }
+
+    .redbottom {
+      width: 100%;
+      height: 100px;
+      background-color: #85010B;
+    }
+
+    .redbottom_body {
+      width: 1000px;
+      height: 100px;
+      margin: 0 auto;
+      display: flex;
+      padding: 10px;
+    }
+
+    .yuan {
+      width: 80px;
+      height: 80px;
+      box-sizing: border-box;
+      border: 4px solid white;
+      border-radius: 50%;
+      /* margin-top: 10px; */
+    }
+
+    .text {
+      width: 890px;
+      margin-top: 10px;
+    }
+
+    .wenzi {
+      width: 600px;
+      display: flex;
+      margin-left: 40px;
+      margin-bottom: 10px;
+      justify-content: space-between;
+    }
+
+    .line {
+      width: 900px;
+      height: 1px;
+      border-bottom: 1px solid rgb(209, 196, 196);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <!-- 顶部导航栏 -->
+    <div class="topnav">
+      <div class="nav">
+        <a href="#">历史起源</a>
+        <a href="#">川剧变脸</a>
+        <a href="#">演出信息</a>
+        <a href="#">变脸类别</a>
+        <a href="#">表现手法</a>
+        <a href="#">人物特点</a>
+        <a href="#">传承保护</a>
+        <a href="#maodian">学生作品展示</a>
+      </div>
+    </div>
+    <!-- 历史起源 -->
+    <div class="body">
+      <div class="body_oneline">
+        <div><img src="./images/lian.jpeg" width="400px" height="400px" alt=""></div>
+        <div class="lishiqiyuan">
+          <h2 class="lishih2"><img src="./images/shanzi.png" width="28px" class="tupian" height="28px"
+              alt=""><span>历史起源</span></h2>
+          <p style="font-size: 14px;text-indent: 2em;line-height: 40px;">
+            变脸之于川剧，有如喷火之于秦腔，皆属招牌路数、看家绝技！说起变脸，有必要先到川剧那里去溯一溯源。
+            话说清乾隆、嘉庆年间，每至逢年过节之际，在四川乡镇村落码头处林立的庙堂都会搭起戏台以作庆典，久而久之，
+            川剧就在街头巷尾之中渐成气候。清代“两湖填四川”，为蜀地的文化带来了诸多新元素，昆、高、胡、弹、灯，
+            诸腔戏班汇入巴蜀各大城中的酒肆街坊之中，生、旦、净、末、丑同亮相于茶馆的小戏台之上，
+            日久逐渐形成共同的风格，清末时统称“川戏”，后才改称“川剧”。</p>
+        </div>
+      </div>
+      <!-- 川剧变脸和演出信息 -->
+      <div class="body_twoline">
+        <!-- 川剧变脸 -->
+        <div class="body_twoline_left">
+          <h2 class="lishih3"><img src="./images/shanzi.png" width="28px" class="tupian" height="28px"
+              alt=""><span>川剧变脸</span></h2>
+          <p style="font-size: 14px;line-height: 35px;">
+            川剧绝活：变脸<br>
+            变脸是运用在川剧艺术中塑造人物的一种特技。是揭示剧中人物内心思想感情的一种浪漫主义手法。<br>
+            变脸的手法大体上分为三种：<span style="color: red;">“抹脸”、“吹脸”、“扯脸”</span>。<br>
+            <span style="color: red;">抹脸</span>：是指将化妆油彩涂在脸的某一特定部位上，到时用手往脸上一抹，就可以变成另一种颜色。<br>
+            <span style="color: red;">吹脸</span>：适合于粉末状的化妆品，如金粉、墨粉、银粉等。表演者在舞台上的某个小盒子内装上粉末，贴近盒子一吹，粉末扑在脸上，立即变成另一种颜色的脸。<br>
+            <span
+              style="color: red;">扯脸</span>：是比较复杂的一种变脸方法。它是事先将脸谱画在一张一张的绸子上，每张脸谱上都系一把丝线，再一张一张地贴在脸上，丝线则系在衣服的某一个顺手而又不引人注目的地方。随着剧情的进展，在舞蹈动作的掩护下一张一张地将它扯下来。
+          </p>
+        </div>
+        <!-- 演出信息 -->
+        <div class="body_twoline_right">
+          <h2 class="lishih4"><img src="./images/shanzi.png" width="28px" class="tupian" height="28px"
+              alt=""><span>演出信息</span></h2>
+          <p style="font-size: 13px;line-height: 50px;">
+            天府艺术公园·蜀园4月21日（星期日）川剧折子戏演出<br>
+            重庆市川剧院2024年4月20日（周六）演出信息<br>
+            成都悦来茶园4月20日（星期六）川剧折子戏演出<br>
+            2024年4月20日郫都区振兴川剧团演出信息<br>
+            2024年4月19日成都市百家班川剧团演出信息<br>
+            2024年4月19日郫都区振兴川剧团演出信息</p>
+        </div>
+      </div>
+    </div>
+    <!-- 学生作品展示 -->
+    <div class="bottom" id="maodian">
+      <div>
+        <h2 class="lishih5"><img src="./images/shanzi.png" width="28px" class="tupian" height="28px"
+            alt=""><span>学生作品展示</span></h2>
+        <h3 style="color: #3128D0;margin: 10px 0 0 20px;">动画 - “变脸”</h3>
+        <div class="circle">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <!-- 红底 -->
+    <div class="redbottom">
+      <div class="redbottom_body">
+        <div class="yuan"></div>
+        <!-- 文字内容 -->
+        <div class="text">
+          <div class="wenzi">
+            <a href="#">关于我们</a>
+            <a href="#">网站合作</a>
+            <a href="#">友情链接</a>
+            <a href="#">网址建设</a>
+          </div>
+          <div class="line"></div>
+          <div>
+            <span style="font-size: 14px;color: rgb(192, 179, 179);padding-left: 40px;">Copyright @ 2024
+              邵阳工业职业技术学院移动应用开发专业 mobile
+              application development</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

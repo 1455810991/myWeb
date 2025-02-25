@@ -1,0 +1,115 @@
+<!DOCTYPE html> 
+<!-- PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>❤️ 爱你 ❤️</title>
+<link rel="shortcut icon" href="Kiss Me.ico">
+
+<style type="text/css">
+@font-face {
+	font-family: digit;
+	src: url('digital-7_mono.ttf') format("truetype");
+}
+</style>
+
+<link href="./static/01010.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="./static/js/0303.js"></script>
+<script type="text/javascript" src="./static/js/0202.js"></script>
+<script type="text/javascript" src="./static/js/0101.js"></script>
+
+</head>
+
+<body>
+
+<div id="mainDiv">
+	<div id="content">
+		<div id="code">
+			<span class="comments">/**</span><br />
+			<span class="space"/><span class="comments">*2023—01-14,</span><br />
+			<span class="space"/><span class="comments">*永远.</span><br />
+			<span class="space"/><span class="comments">**/</span><br />
+			Boy name = <span class="keyword">Mr</span> 坏<br />
+			Girl name = <span class="keyword">Mrs</span> 乖<br />
+			<span class="comments">汉语：我爱你.</span><br />
+			英语：I love you.<br />
+			<span class="comments">日语：爱してる. </span><br />
+			法语：Je t’aime.<br />
+			<span class="comments">韩语：사랑해．</span><br />
+			德语：Ich liebe dich.<br />
+			<span class="comments">俄语：Ялюблютебя．</span><br />
+			泰语：ฉันชอบคุณ．<br />
+			<span class="comments">saya Cinta Mu. _ σ＇αγαπώ. _ Ani ohev otach(male o* **male).</span><br />
+			<span class="comments">rakastan sinua. _ IK zie u graag. _ Ti Amo. _ ma armastan sind.</span><br />
+			szeretlek. <span class="keyword">|</span> Ti Amo. <span class="keyword">|</span> Es tevi Milu. <span class="keyword">|</span> te amo. <span class="keyword">|</span> anh ye'u em.<br />
+			Tave Myliu. <span class="keyword">|</span> Te sakam. <span class="keyword">|</span> inhobbok. <span class="keyword">|</span> kocham cię. <span class="keyword">|</span> EU te amo.<br />
+			<span class="comments">volim te. _ mahal kita iniibig kita. _ Ik hou van je. _ Miluji te.</span><br />
+			<span class="comments">tangshin-i cho-a-yo. _ yes kezi seeroom yem. _ ahs te obicham.</span><br />
+			jeg elsker dig. <span class="keyword">|</span> e'g elska tig. <span class="keyword">|</span> t dua shume. <span class="keyword">|</span> volim te.<br />
+			ljubim te. <span class="keyword">|</span> ani ohev otach. <span class="keyword">|</span> jag lskar dig. <span class="keyword">|</span> seni seviyorum.<br />
+			<br>
+			<span class="placeholder"/><span class="comments">// Whether it is right now</span><br />
+			<span class="placeholder"/><span class="comments">// Still in the distant future.</span><br />
+			<span class="placeholder"/>The boy wants the girl to be happy every day.<br />
+			<br>
+			<br>
+			I want to say:<br />
+			Baby, I love you forever.<br />
+		</div>
+		<div id="loveHeart">
+			<canvas id="garden"></canvas>
+			<div id="words">
+				<div id="messages">
+					亲爱的，这是我们相爱在一起的时光。
+					<div id="elapseClock"></div>
+				</div>
+				<div id="loveu">
+					爱你直到永永远远。<br/>
+					<div class="signature">- 爱你的人</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div id="copyright">
+		<a href="#">....</a><br />
+		<a href="#">....</a><br />
+		
+	</div> -->
+</div>
+
+<script type="text/javascript">
+var offsetX = $("#loveHeart").width() / 2;
+var offsetY = $("#loveHeart").height() / 2 - 55;
+var together = new Date();
+together.setFullYear(2023, 0, 14);
+together.setHours(0);
+together.setMinutes(0);
+together.setSeconds(0);
+together.setMilliseconds(0);
+
+if (!document.createElement('canvas').getContext) {
+	var msg = document.createElement("div");
+	msg.id = "errorMsg";
+	msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+	document.body.appendChild(msg);
+	$("#code").css("display", "none")
+	$("#copyright").css("position", "absolute");
+	$("#copyright").css("bottom", "10px");
+	document.execCommand("stop");
+} else {
+	setTimeout(function () {
+		startHeartAnimation();
+	}, 5000);
+
+	timeElapse(together);
+	setInterval(function () {
+		timeElapse(together);
+	}, 500);
+
+	adjustCodePosition();
+	$("#code").typewriter();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服务器资源导航</title>
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --secondary: #a8a5e6;
+      --background: #f8f9fa;
+      --text: #2d3436;
+      --primary: #ff7eb9;
+      /* 调整为樱花粉 */
+      --secondary: #ff65a3;
+      --text: #4a4a4a;
+      /* 深灰色保持可读性 */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    a {
+      /* text-decoration: none; */
+      text-decoration: none;
+      color: black;
+    }
+
+    body {
+      /* background: linear-gradient(to right, pink, red); */
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      /* 新增渐变背景 */
+      background: linear-gradient(135deg,
+          #ffd1dc 0%,
+          /* 浅粉色 */
+          #ffb3ba 25%,
+          /* 珊瑚粉 */
+          #ff9aa2 50%,
+          /* 蜜桃粉 */
+          #e0b0ff 75%,
+          /* 薰衣草紫 */
+          #b28fce 100%
+          /* 淡紫灰 */
+        );
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    /* 导航样式 */
+    .nav {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(5px);
+      /* background: rgba(255, 255, 255, 0.95); */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* 卡片容器 */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 4rem 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 资源卡片 */
+    .card {
+      /* background: white; */
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(3px);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    /* 花瓣样式 */
+    .petal {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill="%23ff6b6b" d="M10 3.22l-1.5 3.47-3.7.54 2.7 2.63-.64 3.73L10 12.3l3.14 1.65-.64-3.73 2.7-2.63-3.7-.54L10 3.22z"/></svg>');
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    /* 动画效果 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        padding: 4rem 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">服务器资源导航</nav>
+
+  <div class="container">
+    <!-- 示例卡片 -->
+    <div class="card">
+      <a href="./旋转木马照片墙/1.html">
+        <div class="card-img" style="background-image: url('https://picsum.photos/400/300')"></div>
+        <div class="card-content">
+          <h3>旋转木马照片墙</h3>
+          <p>资源简要描述，这里可以说明资源的主要内容和使用方式。</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="./photo_wall/photo_wall.html">
+        <div class="card-img" style="background-image: url('https://picsum.photos/400/300')"></div>
+        <div class="card-content">
+          <h3>头像集合</h3>
+          <p>资源简要描述，这里可以说明资源的主要内容和使用方式。</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="./卸载软件的动态可爱表情/123.html">
+        <div class="card-img" style="background-image: url('https://picsum.photos/400/300')"></div>
+        <div class="card-content">
+          <h3>卸载软件的动态可爱表情</h3>
+          <p>资源简要描述，这里可以说明资源的主要内容和使用方式。</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="./123.html">
+        <div class="card-img" style="background-image: url('https://picsum.photos/400/300')"></div>
+        <div class="card-content">
+          <h3>资源标题</h3>
+          <p>资源简要描述，这里可以说明资源的主要内容和使用方式。</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="./123.html">
+        <div class="card-img" style="background-image: url('https://picsum.photos/400/300')"></div>
+        <div class="card-content">
+          <h3>资源标题</h3>
+          <p>资源简要描述，这里可以说明资源的主要内容和使用方式。</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="./123.html">
+        <div class="card-img" style="background-image: url('https://picsum.photos/400/300')"></div>
+        <div class="card-content">
+          <h3>资源标题</h3>
+          <p>资源简要描述，这里可以说明资源的主要内容和使用方式。</p>
+        </div>
+      </a>
+    </div>
+    <!-- 更多卡片... -->
+  </div>
+
+  <script>
+    // 花瓣飘落效果
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.3) return; // 控制花瓣密度
+
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+
+      // 随机位置和动画时长
+      petal.style.left = `${e.pageX}px`;
+      petal.style.top = `${e.pageY}px`;
+      petal.style.animationDuration = `${Math.random() * 3 + 2}s`;
+
+      document.body.appendChild(petal);
+
+      // 自动移除花瓣
+      setTimeout(() => petal.remove(), 5000);
+    });
+
+    // 卡片入场动画
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+      card.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
+      card.style.opacity = 0;
+    });
+  </script>
+</body>
+
+</html>

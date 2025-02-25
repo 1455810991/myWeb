@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>照片墙</title>
+  <style>
+    /* 重置样式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+
+    /* 照片墙容器 */
+    .photo-wall {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      /* 图片之间的间距 */
+      justify-content: center;
+    }
+
+    /* 照片项 */
+    .photo-item {
+      flex: 1 1 calc(33.333% - 20px);
+      /* 每行显示 3 张图片，适配手机端 */
+      max-width: calc(33.333% - 20px);
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .photo-item:hover {
+      transform: scale(1.05);
+    }
+
+    /* 图片样式 */
+    .photo-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    /* 适配手机端 */
+    @media (max-width: 768px) {
+      .photo-item {
+        flex: 1 1 calc(50% - 10px);
+        /* 手机端每行显示 2 张图片 */
+        max-width: calc(50% - 10px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .photo-item {
+        flex: 1 1 100%;
+        /* 手机端每行显示 1 张图片 */
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="photo-wall">
+    <div class="photo-item">
+      <img src="./image/1.jpg" alt="照片 1">
+    </div>
+    <div class="photo-item">
+      <img src="./image/2.jpg" alt="照片 2">
+    </div>
+    <div class="photo-item">
+      <img src="./image/3.jpg" alt="照片 3">
+    </div>
+    <!-- 更多照片 -->
+  </div>
+</body>
+
+</html>
